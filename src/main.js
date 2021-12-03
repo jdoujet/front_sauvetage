@@ -76,7 +76,7 @@ const messages = {
     selectDate : 'Sélectionnez la date',
     backButton : 'Retour',
     menuHome: 'Accueil',
-    menuCrudStation : 'Stations',
+    menuCrudStation : 'Articles',
     priceLabel : 'Prix',
     menuApi : 'Api',
     searchFormTitle : 'Rechercher un trajet',

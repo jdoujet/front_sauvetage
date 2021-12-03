@@ -45,7 +45,6 @@
                       </v-col>
                     </v-row>
                   </template>
-
                   <v-card>
                       <v-img v-if="selectedButton == 'journeys'" :src="items[0].src" height="800" width="1000"/>
                       <v-img v-else-if="selectedButton == 'stations/lines'" :src="items[1].src" height="800" width="1000"/>
@@ -80,7 +79,7 @@ export default {
 <style>
 
 :root{
-  --main-purple-color: #60378c;
+  --main-purple-color: blue;
 }
 
 .center {

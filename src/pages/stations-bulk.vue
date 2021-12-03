@@ -59,7 +59,7 @@ export default {
 
 
 :root{
-  --main-purple-color: #60378c;
+  --main-purple-color: blue;
 }
 .stationsPageTitle{
   font-size: 25px;
