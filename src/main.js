@@ -38,7 +38,7 @@ const router = new VueRouter({
   routes: [
     {path: '/', component: accueil},
     {path: '/image', component: image},
-    {path: '/stations', component: articles}
+    {path: '/articles', component: articles}
   ]
 
 });

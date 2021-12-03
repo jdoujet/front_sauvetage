@@ -83,7 +83,7 @@ export default {
         {
           icon: "mdi-database-plus",
           title: "menuCrudStation",
-          to: "/stations",
+          to: "/articles",
         },
       ],
       miniVariant: false,
