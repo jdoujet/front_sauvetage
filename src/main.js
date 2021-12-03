@@ -16,8 +16,8 @@ import { Icon } from 'leaflet';
 //import NavBarSideBar from "@/components/NavBarSideBar";
 
 import accueil from "@/pages/accueil";
-import stations from "@/pages/stations";
-import api from "@/pages/api";
+import articles from "@/pages/articles";
+import image from "@/pages/image";
 
 Vue.use(VueRouter)
 Vue.use(VueAxios, axios)
@@ -37,8 +37,8 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     {path: '/', component: accueil},
-    {path: '/stations', component: stations},
-    {path: '/api', component : api}
+    {path: '/image', component: image},
+    {path: '/stations', component: articles}
   ]
 
 });
@@ -52,206 +52,75 @@ Vue.component('l-marker', LMarker);
 //defining text for both language french and english
 const messages = {
   fr: {
-    createStationTitle : 'Création d\'une nouvelle station',
-    createStation: 'Créer une nouvelle station',
-    modifyStation: 'Modifier la station ',
-    nameOfStation : 'nom de la station',
-    longitude : 'longitude',
-    latitude : 'latitude',
-    errorFormStation : 'Vous devez compléter les champs suivants : ',
-    resetForm: 'Réinitialiser',
-    headersStationCrud : [{text: 'Id', value: 'trainStationId'},{text: 'Nom de la station', value: 'name'},
-      {text: 'Longitude', value: 'longitude'},{text: 'Latitude', value: 'latitude'}
-    ],
-    journeysResulsHeader: 'Trajets en lien avec votre recherche',
-    journeysResultsLine: 'Ligne',
-    journeysResultsEmpty: 'Aucun trajet trouvé pour votre recherche',
-    journeysTendancyTitle : 'Tendances des prix sur votre trajet',
-    journeysTendancySecondTitle : 'Sur tous les trajets existants',
-    hoursSelect :[{ text: 'Départ à' }, { text: 'Arrivée à'}],
-    selectHourLabel : 'Sélectionnez l\'heure',
-    searchLabel : 'Rechercher',
-    selectStationDeparture : 'Gare de Départ',
-    selectStationArrival : 'Gare d\'Arrivée',
-    selectDate : 'Sélectionnez la date',
-    backButton : 'Retour',
     menuHome: 'Accueil',
     menuCrudStation : 'Articles',
-    priceLabel : 'Prix',
-    menuApi : 'Api',
-    searchFormTitle : 'Rechercher un trajet',
-    searchResultsTitle : 'Résultats de votre recherche',
-    apiTitle : 'Notre API',
-    buttonToSwagger : 'Accéder à swagger',
-    apiButtonsHeader : 'Partie de l\'api que nous avons utilisé',
-    exempleJourneysButton : 'EXEMPLE DE TRAJET',
-    exempleStationButton : 'EXEMPLE DE STATION & LIGNES',
-    massInsertionTitle : 'Insertion de masse en JSON',
-    createAllStationsButton: 'Créer les stations',
+    websiteTitle: 'Sauveteurs du dunkerquois',
+    searchArticles : 'Rechercher les articles',
+    articleFilters: [
+      { url: "by/boat/name", value: "Par bateau", placeholder: "Entrer un nom de bateau" },
+      { url: "by/title", value: "Par titre",placeholder:"Entrer le titre d'un article" },
+      { url: "by/savior/name", value: "Par sauveteur", placeholder:"Entrer un nom de sauveteur" },
+      
+    ],
+    searchBox_title:'Rechercher par ',
+    titleTable:'Titre de l\'article',
+    nameBoat:'Nom du bateau',
+    nameSaviour:'Nom du sauveur',
+    photosLink:'URL de la photo',
+    btnPhotoLabel: 'Voir la photo',
+    texteHeader: '« L\'espoir est au combattant de la liberté ce que la bouée de sauvetage est au nageur : la garantie qu\'il ne se noiera pas, qu\'il restera à l\'abri du danger. » \
+    Biographie de Nelson Mandela',
+    texteAccueil:'Dunkerque est une commune française, c’est la cinquième ville la plus peuplée de la région Hauts-de-France, ses habitants sont appelés les Dunkerquois et les Dunkerquoises.\
+    L\'histoire de Dunkerque est liée à la mer du Nord. La ville se développa autour de son port. Par sa position, elle suscita de nombreuses convoitises. Le 25 juin 1658, elle changea trois fois de nationalité et devint définitivement française le 27 octobre 1662.\
+    Les sauveteurs du Dunkerquois recensent les sauvetages en mer depuis 1740. Des sauvetages sont effectués à travers le monde auprès de bateaux en détresse.\
+    Notre site regroupe un onglet de recherche permettant de trouver des personnes sauvées, des sauveteurs et des bateaux sauveteurs.'
   },
   en: {
-    createStationTitle : 'Creating a new station',
-    createStation: 'Create a new station',
-    modifyStation: 'Modify the station ',
-    nameOfStation : 'Name of the station',
-    longitude : 'longitude',
-    latitude : 'latitude',
-    errorFormStation : 'You must complete the following fields : ',
-    resetForm: 'Reset',
-    headersStationCrud : [
-      {text: 'Id', value: 'trainStationId'},
-      {text: 'Name of the station', value: 'name'},
-      {text: 'Longitude', value: 'longitude'},
-      {text: 'Latitude', value: 'latitude'}
-    ],
-    journeysResulsHeader: 'Journeys related to your search criteria',
-    journeysResultsLine: 'Line',
-    journeysResultsEmpty: 'No journey matching your criteria was found',
-    journeysTendancyTitle : 'Prices tendancy on your journey',
-    journeysTendancySecondTitle : 'On all existing journeys',
-    hoursSelect :[{ text: 'Departure at', icon: 'mdi-clock' },{ text: 'Arrival at', icon: 'mdi-clock-time-eight' }],
-    selectHourLabel : 'Select the hour',
-    searchLabel : 'Search',
-    selectStationDeparture : 'Station of departure',
-    selectStationArrival : 'Station of arrival',
-    selectDate : 'Select the date',
-    backButton : 'Back',
     menuHome: 'Home',
     menuCrudStation : 'Stations',
-    priceLabel : 'Price',
-    menuApi : 'Api',
-    searchFormTitle : 'Search for a journey',
-    searchResultsTitle : 'Your search results',
-    apiTitle : 'Our API',
-    buttonToSwagger : 'Access to swagger',
-    apiButtonsHeader : 'Part of the API we used',
-    exempleJourneysButton : 'EXAMPLE OF A JOURNEY',
-    exempleStationButton : 'EXAMPLE OF STATION & LINES',
-    massInsertionTitle : 'Bulk insert with JSON',
-    createAllStationsButton: 'Create all stations',
-  },
-  es: {
-    createStationTitle : 'Creando una nueva estación',
-    createStation: 'Crea una nueva estación',
-    modifyStation: 'Modificar la estación ',
-    nameOfStation : 'Nombre de la estación',
-    longitude : 'longitud',
-    latitude : 'latitud',
-    errorFormStation : 'Debes completar los siguientes campos: ',
-    resetForm: 'Reiniciar',
-    headersStationCrud : [
-      {text: 'Id', value: 'trainStationId'},
-      {text: 'Nombre de la estación', value: 'name'},
-      {text: 'Longitud', value: 'longitude'},
-      {text: 'Latitud', value: 'latitude'}
+    websiteTitle: 'Rescuers from Dunkirk',
+    searchArticles : 'Search articles',
+    articleFilters: [
+      { url: "by/boat/name", value: "By boat", placeholder:"Search a boat name" },
+      { url: "by/title", value: "By title", placeholder:"Search an article title" },
+      { url: "by/savior/name", value: "By savior", placeholder:"Search a savior name" },
     ],
-    journeysResulsHeader: 'Viajes relacionados con sus criterios de búsqueda',
-    journeysResultsLine: 'Línea',
-    journeysResultsEmpty: 'No se encontró ningún viaje que coincida con sus criterios',
-    journeysTendancyTitle : 'Tendencia de precios en tu viaje',
-    journeysTendancySecondTitle : 'En todos los viajes existentes',
-    hoursSelect :[{ text: 'Salida a las', icon: 'mdi-clock' },{ text: 'Llegada a', icon: 'mdi-clock-time-eight' }],
-    selectHourLabel : 'Seleccione la hora',
-    searchLabel : 'Búsqueda',
-    selectStationDeparture : 'Estación de salida',
-    selectStationArrival : 'Estación de llegada',
-    selectDate : 'Seleccione la fecha',
-    backButton : 'Atrás',
-    menuHome: 'Página principal',
-    menuCrudStation : 'Estaciones',
-    priceLabel : 'Precio',
-    menuApi : 'Api',
-    searchFormTitle : 'Busca un viaje',
-    searchResultsTitle : 'Tus resultados de búsqueda',
-    apiTitle : 'Nuestra API',
-    buttonToSwagger : 'Acceso swagger',
-    apiButtonsHeader : 'Parte de la API que usamos',
-    exempleJourneysButton : 'EJEMPLO DE VIAJE',
-    exempleStationButton : 'EJEMPLO DE ESTACIÓN Y LÍNEAS',
-    massInsertionTitle : 'Inserción masiva en JSON',
-    createAllStationsButton: 'Crear estaciones',
-  },
-  it: {
-    createStationTitle : 'Creazione di una nuova stazione',
-    createStation: 'Crea una nuova stazione',
-    modifyStation: 'Modifica la stazione ',
-    nameOfStation : 'Nome stazione',
-    longitude : 'lunghezza',
-    latitude : 'latitudine',
-    errorFormStation : 'È necessario completare i seguenti campi : ',
-    resetForm: 'Ricomincia',
-    headersStationCrud : [
-      {text: 'Id', value: 'trainStationId'},
-      {text: 'Nome stazione', value: 'name'},
-      {text: 'lunghezza', value: 'longitude'},
-      {text: 'latitudine', value: 'latitude'}
-    ],
-    journeysResulsHeader: 'Viaggi relativi ai tuoi criteri di ricerca',
-    journeysResultsLine: 'Linea',
-    journeysResultsEmpty: 'Non sono state trovate corse che corrispondono ai tuoi criteri',
-    journeysTendancyTitle : 'Andamento dei prezzi durante il viaggio',
-    journeysTendancySecondTitle : 'In tutti i viaggi esistenti',
-    hoursSelect :[{ text: 'Partenza alle', icon: 'mdi-clock' },{ text: 'Arrivare a', icon: 'mdi-clock-time-eight' }],
-    selectHourLabel : 'Seleziona l\'ora',
-    searchLabel : 'Ricerca',
-    selectStationDeparture : 'Stazione di partenza',
-    selectStationArrival : 'Stazione di arrivo',
-    selectDate : 'Seleziona la data',
-    backButton : 'Dietro a',
-    menuHome: 'Homepage',
-    menuCrudStation : 'Le stagioni',
-    priceLabel : 'Prezzo',
-    menuApi : 'Api',
-    searchFormTitle : 'Cerca un viaggio',
-    searchResultsTitle : 'I tuoi risultati di ricerca',
-    apiTitle : 'La nostra API',
-    buttonToSwagger : 'Accedi alla swagger',
-    apiButtonsHeader : 'Parte dell\'API che abbiamo utilizzato',
-    exempleJourneysButton : 'ESEMPIO DI VIAGGIO',
-    exempleStationButton : 'ESEMPIO DI STAZIONE E LINEE',
-    massInsertionTitle : 'Inserimento di massa in JSON',
-    createAllStationsButton: 'Crea stazioni',
+    searchBox_title:'Search by',
+    titleTable:'Article title',
+    nameBoat:'Boat\'s name',
+    nameSaviour:'Saviour\'s name',
+    photosLink:'Photo\'s URL',
+    btnPhotoLabel: 'See the picture',
+    texteHeader: '“Hope is to the freedom fighter what the lifeline is to the swimmer: the guarantee that he will not drown, that he will stay safe from harm. "\
+    Biography of Nelson Mandela',
+    texteAccueil:'Dunkirk is a French commune, it is the fifth most populous city in the Hauts-de-France region, its inhabitants are called the Dunkirk and the Dunkirk.\
+    The history of Dunkirk is linked to the North Sea. The city developed around its port. By its position, it aroused much envy. On June 25, 1658, she changed her nationality three times and became definitively French on October 27, 1662.\
+    Rescuers from Dunkirk have recorded rescues at sea since 1740. Rescues are carried out across the world from boats in distress.\
+    Our site includes a search tab to find rescued people, rescuers and rescue boats.\
+    '
   },
   de: {
-    createStationTitle : 'Neue Station erstellen',
-    createStation: 'Erstellen Sie eine neue Station',
-    modifyStation: 'Bearbeiten Sie den Sender ',
-    nameOfStation : 'Stationsname',
-    longitude : 'Länge',
-    latitude : 'Breite',
-    errorFormStation : 'Sie müssen die folgenden Felder ausfüllen : ',
-    resetForm: 'Neustart',
-    headersStationCrud : [
-      {text: 'Id', value: 'trainStationId'},
-      {text: 'Stationsname', value: 'name'},
-      {text: 'Länge', value: 'longitude'},
-      {text: 'Breite', value: 'latitude'}
-    ],
-    journeysResulsHeader: 'Reisen im Zusammenhang mit Ihren Suchkriterien',
-    journeysResultsLine: 'Linie',
-    journeysResultsEmpty: 'Es wurden keine Fahrten gefunden, die Ihren Kriterien entsprechen',
-    journeysTendancyTitle : 'Preistrends während der Reise',
-    journeysTendancySecondTitle : 'Bei allen bestehenden Reisen',
-    hoursSelect :[{ text: 'Abfahrt um', icon: 'mdi-clock' },{ text: 'Komm zu', icon: 'mdi-clock-time-eight' }],
-    selectHourLabel : 'Wählen Sie die Zeit',
-    searchLabel : 'Forschung',
-    selectStationDeparture : 'Abfahrtsstation',
-    selectStationArrival : 'Ankunftsstation',
-    selectDate : 'Wählen Sie das Datum',
-    backButton : 'Hinter',
     menuHome: 'Startseite',
     menuCrudStation : 'Jahreszeiten',
-    priceLabel : 'Preis',
-    menuApi : 'Api',
-    searchFormTitle : 'Suche nach einer Reise',
-    searchResultsTitle : 'Ihre Suchergebnisse',
-    apiTitle : 'Unsere API',
-    buttonToSwagger : 'Zugriff auf swagger',
-    apiButtonsHeader : 'Ein Teil der von uns verwendeten API',
-    exempleJourneysButton : 'BEISPIEL EINER REISE',
-    exempleStationButton : 'BEISPIEL FÜR STATION & LINIEN',
-    massInsertionTitle : 'Masseneinfügung in JSON',
-    createAllStationsButton: 'Erstellen Sie Stationen',
+    websiteTitle: 'Retter aus Dünkirchen',
+    searchArticles : 'Artikel suchen',
+    articleFilters: [
+      { url: "by/boat/name", value: "Mit dem Schiff", placeholder:"Geben Sie einen Bootsnamen ein" },
+      { url: "by/title", value: "Nach Titel", placeholder:"Geben Sie einen Artikeltitel ein " },
+      { url: "by/savior/name", value: "Von Rettungsschwimmer", placeholder:"Geben Sie einen Rettungsschwimmernamen ein" },
+    ],
+    searchBox_title:'Suche nach',
+    titleTable:'Artikeltitel',
+    nameBoat:'Bootsnamen',
+    nameSaviour:'Rettungsschwimmernamen',
+    photosLink:'URL-Foto',
+    btnPhotoLabel: 'Sehen das Foto',
+    texteHeader: '“Hoop is voor de vrijheidsstrijder wat de reddingslijn is voor de zwemmer: de garantie dat hij niet zal verdrinken, dat hij gevrijwaard blijft van kwaad. "\
+    Biografie van Nelson Mandela',
+    texteAccueil: 'Duinkerken is een Franse gemeente, het is de vijfde meest bevolkte stad in de regio Hauts-de-France, de inwoners worden Duinkerken en Duinkerken genoemd.\
+    De geschiedenis van Duinkerken is verbonden met de Noordzee. De stad ontwikkelde zich rond de haven. Door zijn positie wekte het veel afgunst. Op 25 juni 1658 veranderde ze drie keer van nationaliteit en werd op 27 oktober 1662 definitief Frans.\
+    De reddingswerkers van Duinkerken hebben sinds 1740 reddingen op zee geregistreerd. Reddingen worden over de hele wereld uitgevoerd vanaf boten in nood.\
+    Onze site bevat een zoektab om geredde mensen, reddingswerkers en reddingsboten te vinden.'
   },
 }
 
